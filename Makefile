@@ -10,7 +10,7 @@ $(RUSTEXECUTABLE): src/main.rs
 	cargo build
 
 $(ASTPARSE): cpp/astparse.cpp
-	$(CXX) -o $@ $<
+	$(CXX) -o $@ $<	
 
 clean:
 	rm -f bin/*
