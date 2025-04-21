@@ -1,0 +1,60 @@
+0 source_file 0 110
+1 function_item 0 110
+2 fn 0 2
+2 identifier 3 7
+2 parameters 8 10
+3 ( 8 9
+3 ) 9 10
+2 block 11 110
+3 { 11 12
+3 let_declaration 17 27
+4 let 17 20
+4 identifier 21 22
+4 = 23 24
+4 integer_literal 25 26
+4 ; 26 27
+3 const_item 32 49
+4 const 32 37
+4 identifier 38 39
+4 : 39 40
+4 primitive_type 41 44
+4 = 45 46
+4 integer_literal 47 48
+4 ; 48 49
+3 expression_statement 54 108
+4 for_expression 54 108
+5 for 54 57
+5 identifier 58 59
+5 in 60 62
+5 range_expression 63 69
+6 integer_literal 63 64
+6 .. 64 66
+6 integer_literal 66 69
+5 block 70 108
+6 { 70 71
+6 expression_statement 80 102
+7 macro_invocation 80 101
+8 identifier 80 87
+8 ! 87 88
+8 token_tree 88 101
+9 ( 88 89
+9 string_literal 89 97
+10 " 89 90
+10 string_content 90 96
+10 " 96 97
+9 , 97 98
+9 identifier 99 100
+9 ) 100 101
+7 ; 101 102
+6 } 107 108
+3 } 109 110
+END
+Source Code:
+fn main () {
+    let a = 3;
+    const b: i32 = 2;
+    for i in 0..100 {
+        println!("Idk {}", i);
+    }
+}
+
