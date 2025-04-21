@@ -389,18 +389,21 @@ use tree_sitter_rust;
 //     symbol_table_head
 // }
 
-fn print_ast (node: Node, source_code: &str, level: usize) {
+fn print_ast (node: Node, source_code: &str, level: usize, visual: bool) {
     let kind = node.kind();
-    let start = node.start_byte();
-    let end = node.end_byte();
-    // let text = &source_code[start..end];
-    // for _ in 0..level {
-    //     print!("\t");
-    // }
-    println!("{} {} {} {}", level, kind, start, end);
+    if visual {
+        for _ in 0..level {
+            print!("\t");
+        }
+        println!("Node kind: {}", kind);
+    } else {
+        let start = node.start_byte();
+        let end = node.end_byte();
+        println!("{} {} {} {}", level, kind, start, end);
+    }
 
     for i in 0..node.child_count() {
-        print_ast(node.child(i).unwrap(), source_code, level + 1);
+        print_ast(node.child(i).unwrap(), source_code, level + 1, visual);
     }
 }
 
@@ -416,8 +419,27 @@ fn get_args() -> Vec<String> {
 
 
 fn main() {
-
     let args = get_args();
+
+    if args.len() == 3 {
+        if args[1] == "-v" {
+            let file = args[2].clone();
+            let content = fs::read_to_string(file).expect("Failed to read the file");
+
+            let mut parser = Parser::new();
+            parser
+                .set_language(&tree_sitter_rust::LANGUAGE.into())
+                .expect("Error loading Rust grammar");
+            let tree = parser.parse(&content, None).expect("Failed to parse source code");
+            let root_node = tree.root_node();
+
+            let source_code = content.as_str();
+            let level = 0;
+
+            print_ast(root_node, source_code, level, true);
+        }
+        return;
+    }
 
     let file = args[1].clone();
     let content = fs::read_to_string(file).expect("Failed to read the file");
@@ -432,6 +454,6 @@ fn main() {
     let source_code = content.as_str();
     let level = 0;
 
-    print_ast(root_node, source_code, level);
+    print_ast(root_node, source_code, level, false);
     println!("END");
 }

@@ -1,29 +1,28 @@
-#include "../lib/ast.h"
-#include "../lib/astparse.h"
+#include "../include/code.h"
 
 #include <string>
 #include <fstream>
 
-void print_check(ASTNode* node, std::string* source_code, int level) {
-    std::string line = source_code->substr(node->start, node->end - node->start);
-    if (level == 0) {
-        goto direct;
-    }
-    for (int i = 0; i < level; ++i) {
-        std::cout << "\t";
-    }
-    std::cout << level << " " << node->type << " " << node->start << " " << node->end << std::endl;
-    for (int i = 0; i < level; ++i) {
-        std::cout << "\t";
-    }
-    std::cout << line << std::endl;
+// void print_check(ASTNode* node, std::string* source_code, int level) {
+//     std::string line = source_code->substr(node->start, node->end - node->start);
+//     if (level == 0) {
+//         goto direct;
+//     }
+//     for (int i = 0; i < level; ++i) {
+//         std::cout << "\t";
+//     }
+//     std::cout << level << " " << node->type << " " << node->start << " " << node->end << std::endl;
+//     for (int i = 0; i < level; ++i) {
+//         std::cout << "\t";
+//     }
+//     std::cout << line << std::endl;
 
-    direct:
+//     direct:
 
-    for (auto child : node->children) {
-        print_check(child, source_code, level + 1);
-    }
-}
+//     for (auto child : node->children) {
+//         print_check(child, source_code, level + 1);
+//     }
+// }
 
 int main(int argc, char* argv[]) {
 
@@ -54,7 +53,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    
+    Code code;
+    code.setSourceCode(source_code);
+    code.setAST();
 
     // Print the source code
     // std::cout << "Source Code:" << std::endl;
