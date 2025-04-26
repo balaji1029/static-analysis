@@ -48,11 +48,13 @@ struct Class : public Symbol {
 };
 
 struct SymbolTable {
-    std::string name;
     std::vector<Symbol> symbols;
     std::vector<SymbolTable*> children;
     SymbolTable* parent;
     std::pair<int, int> scope;
+
+    SymbolTable(SymbolTable* parent = nullptr, int start = 0, int end = 0)
+        : parent(parent), scope(start, end) {}
 
     Symbol* findSymbol(std::string name) {
         for (auto& symbol : symbols) {
@@ -95,7 +97,6 @@ struct SymbolTree {
 
     SymbolTree() {
         root = new SymbolTable();
-        root->name = "global";
         root->scope = {0, 0};
         root->parent = nullptr;
     }
