@@ -18,7 +18,7 @@ struct HierNode {
     HierType type;
     int start;
     int end;
-    std::vector<HierNode*> parent;
+    std::vector<HierNode*> parents;
     std::vector<HierNode*> children;
 
     HierNode(std::string name, std::string type, int start, int end) : name(name), type(type == "trait" ? TRAIT : STRUCT), start(start), end(end) {}
@@ -40,7 +40,7 @@ struct HierNode {
         if (find(parent->children.begin(), parent->children.end(), this) != parent->children.end()) {
             return; // Parent already exists
         }
-        this->parent.push_back(parent);
+        this->parents.push_back(parent);
         parent->addChild(this);
     }
 };
@@ -71,19 +71,21 @@ struct Hierarchy {
     }
 
     void print(std::string &code) {
-        for (auto node : nodes) {
-            std::cout << "Node: " << node->name << ", Type: " << (node->type == TRAIT ? "Trait" : "Struct") << ", Start: " << node->start << ", End: " << node->end << "\n";
-            std::cout << code.substr(node->start, node->end - node->start) << "\n";
-            std::cout << "  Parents: ";
-            for (auto parent : node->parent) {
-                std::cout << parent->name << " ";
-            }
-            std::cout << "\n  Children: ";
-            for (auto child : node->children) {
-                std::cout << child->name << " ";
-            }
-            std::cout << "\n";
-        }
+        // std::cout << "digraph G {\n";
+        // for (auto node : nodes) {
+        //     // std::cout << "Node: " << node->name << ", Type: " << (node->type == TRAIT ? "Trait" : "Struct") << ", Start: " << node->start << ", End: " << node->end << "\n";
+        //     // std::cout << code.substr(node->start, node->end - node->start) << "\n";
+        //     // std::cout << "  Parents: ";
+        //     // for (auto parent : node->parents) {
+        //     //     std::cout << parent->name << " ";
+        //     // }
+        //     // std::cout << "\n  Children: ";
+        //     for (auto child : node->children) {
+        //         std::cout << "  " << node->name << " -> " << child->name << ";\n";
+        //     }
+        //     // std::cout << "\n";
+        // }
+        // std::cout << "}\n";
     }
 
     void walkAstForDecl(ASTNode* node, std::string &code) {
@@ -159,7 +161,7 @@ struct Hierarchy {
 
     void addConnections(AST* ast, std::string &code) {
         walkAstForImpl(ast->root, code, false);
-        // print(code);
+        print(code);
     }
 };
 

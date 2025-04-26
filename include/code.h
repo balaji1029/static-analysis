@@ -26,7 +26,7 @@ public:
             return;
         }
         ast = parseAST();
-        // ast->print();
+        ast->print();
     }
 
     void setHierarchyMap() {
@@ -37,14 +37,6 @@ public:
 
         hierarchy.addClasses(ast, source_code);
         hierarchy.addConnections(ast, source_code);
-        // Populate the hierarchy_map based on the AST
-        // for (auto node : ast->nodes) {
-        //     HierNode* hierNode = new HierNode();
-        //     hierNode->name = node->type;
-        //     hierNode->start = node->start;
-        //     hierNode->end = node->end;
-        //     hierarchy_map[node->type] = hierNode;
-        // }
     }
 };
 

@@ -17,4 +17,4 @@ clean:
 	cargo clean
 
 run: $(RUSTEXECUTABLE) $(ASTPARSE)
-	$(RUSTEXECUTABLE) $(CODE) | $(ASTPARSE) $(CODE)
+	$(RUSTEXECUTABLE) $(CODE) | $(ASTPARSE) $(CODE) > graphs/$(CODE).dot
