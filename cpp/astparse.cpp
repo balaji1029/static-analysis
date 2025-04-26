@@ -34,10 +34,10 @@ int main(int argc, char* argv[]) {
     std::string source_file_path = argv[1];
 
     // Parse the AST from standard input
-    AST* ast = parseAST();
+    // AST* ast = parseAST();
 
     // Print the AST
-    ast->print();
+    // ast->print();
 
     std::string source_code;
     std::fstream source_file(source_file_path, std::ios::in);
@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     Code code;
     code.setSourceCode(source_code);
     code.setAST();
-
+    code.setHierarchyMap();
     // Print the source code
     // std::cout << "Source Code:" << std::endl;
     // std::cout << source_code << std::endl;

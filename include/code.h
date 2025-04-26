@@ -10,7 +10,8 @@
 
 class Code {
     std::string source_code;
-    std::map<std::string, HierNode*> hierarchy_map;
+    // std::map<std::string, HierNode*> hierarchy_map;
+    Hierarchy hierarchy;
     AST* ast;
 
 public:
@@ -25,6 +26,7 @@ public:
             return;
         }
         ast = parseAST();
+        // ast->print();
     }
 
     void setHierarchyMap() {
@@ -32,14 +34,16 @@ public:
             std::cerr << "Error: AST is not set." << std::endl;
             return;
         }
+
+        hierarchy.addClasses(ast, source_code);
         // Populate the hierarchy_map based on the AST
-        for (auto node : ast->nodes) {
-            HierNode* hierNode = new HierNode();
-            hierNode->name = node->type;
-            hierNode->start = node->start;
-            hierNode->end = node->end;
-            hierarchy_map[node->type] = hierNode;
-        }
+        // for (auto node : ast->nodes) {
+        //     HierNode* hierNode = new HierNode();
+        //     hierNode->name = node->type;
+        //     hierNode->start = node->start;
+        //     hierNode->end = node->end;
+        //     hierarchy_map[node->type] = hierNode;
+        // }
     }
 };
 

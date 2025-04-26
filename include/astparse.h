@@ -27,10 +27,16 @@ AST* parseAST() {
     while (true) {
         std::string line;
         std::getline(std::cin, line);
+        std::string trimmedLine = line;
+        line = trimmedLine.erase(trimmedLine.find_last_not_of(" \n\r\t") + 1);
+        // std::cout << line << "---" << line.size() << std::endl;
         if (line == "END") {
+            break;
+        } else if (line.empty()) {
             break;
         }
         lines.push_back(line);
+        // std::cout << line << std::endl;
     }
 
     // Create a new AST
