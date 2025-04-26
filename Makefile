@@ -1,4 +1,4 @@
-RUSTEXECUTABLE := target/debug/your-project
+RUSTEXECUTABLE := target/debug/ast-build
 ASTPARSE := bin/astparse
 CXX := g++
 CXXFLAGS := -std=c++20 -O3

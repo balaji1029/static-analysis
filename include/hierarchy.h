@@ -71,21 +71,21 @@ struct Hierarchy {
     }
 
     void print(std::string &code) {
-        // std::cout << "digraph G {\n";
-        // for (auto node : nodes) {
-        //     // std::cout << "Node: " << node->name << ", Type: " << (node->type == TRAIT ? "Trait" : "Struct") << ", Start: " << node->start << ", End: " << node->end << "\n";
-        //     // std::cout << code.substr(node->start, node->end - node->start) << "\n";
-        //     // std::cout << "  Parents: ";
-        //     // for (auto parent : node->parents) {
-        //     //     std::cout << parent->name << " ";
-        //     // }
-        //     // std::cout << "\n  Children: ";
-        //     for (auto child : node->children) {
-        //         std::cout << "  " << node->name << " -> " << child->name << ";\n";
-        //     }
-        //     // std::cout << "\n";
-        // }
-        // std::cout << "}\n";
+        std::cout << "digraph G {\n";
+        for (auto node : nodes) {
+            // std::cout << "Node: " << node->name << ", Type: " << (node->type == TRAIT ? "Trait" : "Struct") << ", Start: " << node->start << ", End: " << node->end << "\n";
+            // std::cout << code.substr(node->start, node->end - node->start) << "\n";
+            // std::cout << "  Parents: ";
+            // for (auto parent : node->parents) {
+            //     std::cout << parent->name << " ";
+            // }
+            // std::cout << "\n  Children: ";
+            for (auto child : node->children) {
+                std::cout << "  " << node->name << " -> " << child->name << ";\n";
+            }
+            // std::cout << "\n";
+        }
+        std::cout << "}\n";
     }
 
     void walkAstForDecl(ASTNode* node, std::string &code) {
