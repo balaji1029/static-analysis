@@ -10,12 +10,12 @@ trait Hunt {
     fn hunt(&self);
 }
 
-// Composite trait
-trait Animal: Speak + Move {
-    fn describe(&self) {
-        println!("I am an animal.");
-    }
-}
+// // Composite trait
+// trait Animal: Speak + Move {
+//     fn describe(&self) {
+//         println!("I am an animal.");
+//     }
+// }
 
 // Dog struct
 struct Dog {

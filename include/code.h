@@ -36,6 +36,7 @@ public:
         }
 
         hierarchy.addClasses(ast, source_code);
+        hierarchy.addConnections(ast, source_code);
         // Populate the hierarchy_map based on the AST
         // for (auto node : ast->nodes) {
         //     HierNode* hierNode = new HierNode();

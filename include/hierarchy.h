@@ -86,7 +86,7 @@ struct Hierarchy {
         }
     }
 
-    void walkAst(ASTNode* node, std::string &code) {
+    void walkAstForDecl(ASTNode* node, std::string &code) {
         if (node->type == "struct_item") {
             int start = node->start;
             int end = node->end;
@@ -111,14 +111,55 @@ struct Hierarchy {
             }
         } else {
             for (auto child : node->children) {
-                walkAst(child, code);
+                walkAstForDecl(child, code);
+            }
+        }
+    }
+
+    void walkAstForImpl(ASTNode* node, std::string &code, bool flag) {
+        // if (flag) {
+        //     std::cout << node->type << " " << node->start << " " << node->end << "\n";
+        //     std::cout << code.substr(node->start, node->end - node->start) << "\n";
+        //     std::cout << "Children: " << node->children.size() << "\n";
+        // }
+        if (node->type == "impl_item") {
+            for (auto child : node->children) {
+                bool for_flag = false;
+                std::string str;
+                std::string tr;
+                for (auto child : node->children) {
+                    if (child->type == "type_identifier") {
+                        if (!for_flag) {
+                            tr = code.substr(child->start, child->end - child->start);
+                        } else {
+                            str = code.substr(child->start, child->end - child->start);
+                            HierNode* node1 = findNode(str);
+                            HierNode* node2 = findNode(tr);
+                            if (node1 != nullptr && node2 != nullptr) {
+                                node1->addParent(node2);
+                            }
+                            break;
+                        }
+                    } else if (child->type == "for") for_flag = true;
+                    
+                }
+                // walkAstForImpl(child, code, true);
+            }
+        } else {
+            for (auto child : node->children) {
+                walkAstForImpl(child, code, flag);
             }
         }
     }
 
     void addClasses(AST* ast, std::string &code) {
-        walkAst(ast->root, code);
-        print(code);
+        walkAstForDecl(ast->root, code);
+        // print(code);
+    }
+
+    void addConnections(AST* ast, std::string &code) {
+        walkAstForImpl(ast->root, code, false);
+        // print(code);
     }
 };
 

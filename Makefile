@@ -1,7 +1,7 @@
 RUSTEXECUTABLE := target/debug/your-project
 ASTPARSE := bin/astparse
 CXX := g++
-CXXFLAGS := -std=c++20 -Wall -Wextra -g
+CXXFLAGS := -std=c++20 -O3
 CODE := codes/forloop.rs
 
 all: $(ASTPARSE) $(RUSTEXECUTABLE)
